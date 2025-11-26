@@ -1,0 +1,8 @@
+export { Building2Icon as TenantIcon } from 'lucide-react'
+export { UserRound as UserIcon } from 'lucide-react'
+export { LayoutDashboardIcon as DashboardIcon } from 'lucide-react'
+export { TrashIcon as DeleteIcon } from 'lucide-react'
+export { EditIcon as EditIcon } from 'lucide-react'
+export { XIcon as CloseIcon } from 'lucide-react'
+export { PlusIcon as AddIcon } from 'lucide-react'
+export { SettingsIcon as SettingsIcon } from 'lucide-react'

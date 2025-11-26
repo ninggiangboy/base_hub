@@ -1,0 +1,31 @@
+input PageParams {
+    pageNumber: Int,
+    pageSize: Int,
+    sortBy: String
+    sortOrder: String
+}
+
+type Pagination {
+    number: Int
+    size: Int
+    hasNext: Boolean
+    hasPrevious: Boolean
+    totalItems: Int
+}
+
+type AuditUser {
+    id: ID
+    name: String
+    userType: UserType,
+    timestamp: String
+}
+
+enum UserType {
+    SYSTEM_USER
+    APP_USER
+}
+
+type AuditUserPair {
+    createdBy: AuditUser
+    updatedBy: AuditUser
+}
