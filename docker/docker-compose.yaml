@@ -48,11 +48,33 @@ services:
     container_name: base_hub_valkey
     ports:
       - '6379:6379'
-  # redis:
-  #   image: redis:8.2.2
-  #   container_name: base_hub_redis
-  #   ports:
-  #     - '6379:6379'
+  kafka:
+    image: 'apache/kafka:4.1.1'
+    container_name: base_hub_kafka
+    ports:
+      - '9092:9092'  # BROKER
+      - '9093:9093'  # CONTROLLER
+      - '9094:9094'  # INTERNAL
+      - '9095:9095'  # EXTERNAL
+    environment:
+      KAFKA_NODE_ID: 0
+      KAFKA_PROCESS_ROLES: "broker,controller"
+      KAFKA_CONTROLLER_QUORUM_VOTERS: "0@kafka:9093"
+      KAFKA_LISTENERS: "BROKER://:9092,CONTROLLER://:9093,INTERNAL://:9094,EXTERNAL://:9095"
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: "BROKER:PLAINTEXT,CONTROLLER:PLAINTEXT,INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT"
+      KAFKA_INTER_BROKER_LISTENER_NAME: "BROKER"
+      KAFKA_CONTROLLER_LISTENER_NAMES: "CONTROLLER"
+      KAFKA_ADVERTISED_LISTENERS: "BROKER://kafka:9092,INTERNAL://kafka:9094,EXTERNAL://localhost:9095"
+      KAFKA_CLIENT_LISTENER_NAME: "INTERNAL"
+  kafka-ui:
+    image: 'kafbat/kafka-ui:f51df4c'
+    container_name: base_hub_kafka_ui
+    ports:
+      - '8080:8080'
+    environment:
+      DYNAMIC_CONFIG_ENABLED: 'true'
+      KAFKA_CLUSTERS_0_NAME: 'local'
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: 'kafka:9094'
   minio:
     image: minio/minio:RELEASE.2025-09-07T16-13-09Z-cpuv1
     container_name: base_hub_minio
