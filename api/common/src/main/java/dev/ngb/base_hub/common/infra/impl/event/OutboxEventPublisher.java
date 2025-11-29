@@ -2,7 +2,7 @@ package dev.ngb.base_hub.common.infra.impl.event;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.ngb.base_hub.common.api.event.EventPublisher;
-import dev.ngb.base_hub.common.api.tenant.TenantContextHolder;
+import dev.ngb.base_hub.common.api.tenant.OrganizationContextHolder;
 import dev.ngb.base_hub.common.base.annotation.InfraService;
 import dev.ngb.base_hub.common.infra.outbox.OutboxEventEntity;
 import dev.ngb.base_hub.common.infra.outbox.OutboxEventRepository;
@@ -16,7 +16,7 @@ import java.time.Instant;
 public class OutboxEventPublisher implements EventPublisher {
 
     private final OutboxEventRepository outboxEventRepository;
-    private final TenantContextHolder tenantContextHolder;
+    private final OrganizationContextHolder organizationContextHolder;
     private final ObjectMapper objectMapper;
 
     @Override
@@ -25,7 +25,7 @@ public class OutboxEventPublisher implements EventPublisher {
             OutboxEventEntity outboxEvent = OutboxEventEntity.builder()
                     .type(event.getClass().getSimpleName())
                     .payload(objectMapper.writeValueAsString(event))
-                    .tenantId(tenantContextHolder.getCurrentTenantId())
+                    .tenantId(organizationContextHolder.getCurrentOrgId())
                     .status(OutboxEventStatus.PENDING)
                     .createdAt(Instant.now())
                     .build();

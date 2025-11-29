@@ -8,6 +8,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Map;
+import java.util.Objects;
 import java.util.TreeMap;
 import java.util.regex.Pattern;
 
@@ -28,6 +29,10 @@ public class StringUtils {
             return false;
         }
         return EMAIL_PATTERN.matcher(value).matches();
+    }
+
+    public static boolean equals(String a, String b) {
+        return Objects.equals(a, b);
     }
 
     public static String toSnakeCase(String value) {
