@@ -1,4 +1,4 @@
-package dev.ngb.base_hub.common.infra.outbox;
+package dev.ngb.base_hub.common.infra.impl.event.outbox;
 
 import org.springframework.data.repository.CrudRepository;
 

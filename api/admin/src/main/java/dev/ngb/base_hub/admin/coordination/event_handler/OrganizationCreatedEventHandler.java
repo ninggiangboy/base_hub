@@ -1,0 +1,40 @@
+package dev.ngb.base_hub.admin.coordination.event_handler;
+
+import dev.ngb.base_hub.admin.shared.migration.public_api.MigrationPublicApi;
+import dev.ngb.base_hub.admin.shared.notification.public_api.NotificationPublicApi;
+import dev.ngb.base_hub.admin.shared.organization.public_api.OrganizationPublicApi;
+import dev.ngb.base_hub.admin.shared.user.public_api.UserPublicApi;
+import dev.ngb.base_hub.admin.shared.organization.event.OrganizationCreatedEvent;
+import dev.ngb.base_hub.common.api.tenant.OrganizationContextHolder;
+import dev.ngb.base_hub.common.base.annotation.EventHandleService;
+import dev.ngb.base_hub.common.base.event.IntegrationEventHandler;
+import dev.ngb.base_hub.common.domain.base.BaseUser;
+import lombok.RequiredArgsConstructor;
+
+@EventHandleService
+@RequiredArgsConstructor
+public class OrganizationCreatedEventHandler implements IntegrationEventHandler<OrganizationCreatedEvent> {
+
+    private final OrganizationContextHolder organizationContextHolder;
+    private final UserPublicApi userPublicApi;
+    private final NotificationPublicApi notificationPublicApi;
+    private final OrganizationPublicApi organizationPublicApi;
+    private final MigrationPublicApi migrationPublicApi;
+
+    @Override
+    public void handle(OrganizationCreatedEvent event) {
+        try {
+            migrationPublicApi.performOrgSchemaMigration(event.orgId());
+            organizationContextHolder.setCurrentOrgId(event.orgId());
+            BaseUser admin = userPublicApi.createDefaultAdminForOrganization(event.adminName(), event.adminEmail());
+            organizationPublicApi.completedInitOrganization();
+            notificationPublicApi.sendWelcomeEmailForUserOrg(admin);
+        } catch (RuntimeException ex) {
+            organizationPublicApi.failedInitOrganization();
+            throw ex;
+        } finally {
+            // Clear the org context
+            organizationContextHolder.clear();
+        }
+    }
+}

@@ -1,4 +1,4 @@
-package dev.ngb.base_hub.common.infra.outbox;
+package dev.ngb.base_hub.common.infra.impl.event.outbox;
 
 import lombok.Builder;
 import org.springframework.data.annotation.Id;
@@ -13,8 +13,7 @@ public record OutboxEventEntity(
         @Id UUID id,
         String type,
         String payload,
-        String tenantId,
-        OutboxEventStatus status,
+        String orgId,
         Instant createdAt
 ) {
 }

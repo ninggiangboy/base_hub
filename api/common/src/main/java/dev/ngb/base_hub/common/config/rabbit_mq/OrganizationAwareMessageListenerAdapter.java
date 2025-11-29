@@ -16,7 +16,7 @@ public class OrganizationAwareMessageListenerAdapter extends MessageListenerAdap
 
     @Override
     public void onMessage(Message message, Channel channel) throws Exception {
-        String tenantId = (String) message.getMessageProperties().getHeaders().get("tenantId");
+        String tenantId = (String) message.getMessageProperties().getHeaders().get("orgId");
         try {
             organizationContextHolder.setCurrentOrgId(tenantId);
             super.onMessage(message, channel);

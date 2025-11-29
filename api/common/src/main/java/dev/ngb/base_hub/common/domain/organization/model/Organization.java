@@ -26,7 +26,7 @@ public class Organization extends DomainEntity<Long> {
         organization.domain = domain;
         organization.contact = contact;
         organization.description = description;
-        organization.status = OrganizationStatus.ACTIVE;
+        organization.status = OrganizationStatus.INITIALIZING;
         return organization;
     }
 }

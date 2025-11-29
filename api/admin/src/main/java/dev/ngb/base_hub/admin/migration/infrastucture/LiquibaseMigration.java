@@ -1,6 +1,6 @@
-package dev.ngb.base_hub.common.infra.impl.migration;
+package dev.ngb.base_hub.admin.migration.infrastucture;
 
-import dev.ngb.base_hub.common.api.migration.MigrationService;
+import dev.ngb.base_hub.admin.shared.migration.public_api.MigrationPublicApi;
 import dev.ngb.base_hub.common.base.annotation.InfraService;
 import liquibase.Liquibase;
 import liquibase.database.Database;
@@ -15,13 +15,13 @@ import java.sql.*;
 
 @InfraService
 @RequiredArgsConstructor
-public class LiquibaseMigrationService implements MigrationService {
+public class LiquibaseMigration implements MigrationPublicApi {
 
     private final DataSource dataSource;
     private static final String CHANGELOG_PATH = "db/changelog/tenant/db.changelog-master.xml";
 
     @Override
-    public void performOrgMigration(String orgId) {
+    public void performOrgSchemaMigration(String orgId) {
         try (Connection connection = dataSource.getConnection()) {
             // Check if schema exists
             boolean schemaExists;

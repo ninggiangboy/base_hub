@@ -3,7 +3,9 @@ package dev.ngb.base_hub.common.domain.organization.model;
 import dev.ngb.base_hub.common.domain.base.BaseUser;
 import dev.ngb.base_hub.common.domain.constant.OrganizationUserRole;
 import dev.ngb.base_hub.common.domain.constant.OrganizationUserStatus;
+import lombok.Getter;
 
+@Getter
 public class OrganizationUser extends BaseUser {
     private OrganizationUserStatus status;
     private OrganizationUserRole role;

@@ -2,10 +2,12 @@ package dev.ngb.base_hub.common.domain.base;
 
 import dev.ngb.base_hub.common.base.domain.DomainEntity;
 import dev.ngb.base_hub.common.base.util.StringUtils;
+import lombok.Getter;
 
 import java.time.Instant;
 import java.util.UUID;
 
+@Getter
 public class BaseUser extends DomainEntity<UUID> {
     protected String loginId;
     protected String email;

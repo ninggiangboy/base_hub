@@ -18,7 +18,6 @@ public class CreateOrganizationCommandHandler implements CommandHandler<CreateOr
 
     private final OrganizationRepository organizationRepository;
     private final EventPublisher eventPublisher;
-    private final MigrationService migrationService;
 
     @Override
     public Result<Void> execute(CreateOrganizationCommand command) {
