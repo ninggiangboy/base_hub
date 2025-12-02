@@ -1,7 +1,7 @@
 package dev.ngb.base_hub.admin.organization.adapter.resolver;
 
 import dev.ngb.base_hub.admin.organization.application.command.CreateOrganizationCommand;
-import dev.ngb.base_hub.common.base.command.CommandHandler;
+import dev.ngb.base_hub.base.command.CommandHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.stereotype.Controller;

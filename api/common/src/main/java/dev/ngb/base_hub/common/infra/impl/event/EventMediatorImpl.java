@@ -1,9 +1,9 @@
 package dev.ngb.base_hub.common.infra.impl.event;
 
 import dev.ngb.base_hub.common.api.event.EventMediator;
-import dev.ngb.base_hub.common.base.annotation.InfraService;
-import dev.ngb.base_hub.common.base.event.Event;
-import dev.ngb.base_hub.common.base.event.EventHandler;
+import dev.ngb.base_hub.base.annotation.InfraService;
+import dev.ngb.base_hub.base.event.Event;
+import dev.ngb.base_hub.base.event.EventHandler;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.GenericTypeResolver;
 

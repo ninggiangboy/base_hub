@@ -1,7 +1,7 @@
 package dev.ngb.base_hub.admin.shared.organization.event;
 
-import dev.ngb.base_hub.common.base.annotation.Topic;
-import dev.ngb.base_hub.common.base.event.IntegrationEvent;
+import dev.ngb.base_hub.base.annotation.Topic;
+import dev.ngb.base_hub.base.event.IntegrationEvent;
 
 @Topic(OrganizationCreatedEvent.TOPIC)
 public record OrganizationCreatedEvent(

@@ -1,14 +1,10 @@
 package dev.ngb.base_hub.admin.coordination.event_handler;
 
 import dev.ngb.base_hub.admin.shared.migration.public_api.MigrationPublicApi;
-import dev.ngb.base_hub.admin.shared.notification.public_api.NotificationPublicApi;
-import dev.ngb.base_hub.admin.shared.organization.public_api.OrganizationPublicApi;
-import dev.ngb.base_hub.admin.shared.user.public_api.UserPublicApi;
 import dev.ngb.base_hub.admin.shared.organization.event.OrganizationCreatedEvent;
 import dev.ngb.base_hub.common.context.OrganizationContextHolder;
-import dev.ngb.base_hub.common.base.annotation.EventHandleService;
-import dev.ngb.base_hub.common.base.event.EventHandler;
-import dev.ngb.base_hub.common.domain.base.BaseUser;
+import dev.ngb.base_hub.base.annotation.EventHandleService;
+import dev.ngb.base_hub.base.event.EventHandler;
 import lombok.RequiredArgsConstructor;
 
 @EventHandleService

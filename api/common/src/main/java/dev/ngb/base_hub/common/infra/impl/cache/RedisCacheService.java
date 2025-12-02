@@ -2,7 +2,7 @@ package dev.ngb.base_hub.common.infra.impl.cache;
 
 import dev.ngb.base_hub.common.api.cache.CacheService;
 import dev.ngb.base_hub.common.api.lock.LockService;
-import dev.ngb.base_hub.common.base.annotation.InfraService;
+import dev.ngb.base_hub.base.annotation.InfraService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RBucket;

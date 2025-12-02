@@ -1,7 +1,7 @@
 package dev.ngb.base_hub.admin.migration.infrastucture;
 
 import dev.ngb.base_hub.admin.shared.migration.public_api.MigrationPublicApi;
-import dev.ngb.base_hub.common.base.annotation.InfraService;
+import dev.ngb.base_hub.base.annotation.InfraService;
 import liquibase.Liquibase;
 import liquibase.database.Database;
 import liquibase.database.DatabaseFactory;

@@ -1,7 +1,7 @@
 package dev.ngb.base_hub.common.infra.jdbc.base;
 
-import dev.ngb.base_hub.common.base.domain.BaseDomainRepository;
-import dev.ngb.base_hub.common.base.domain.DomainEntity;
+import dev.ngb.base_hub.base.domain.BaseDomainRepository;
+import dev.ngb.base_hub.base.domain.DomainEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.repository.ListCrudRepository;
 import org.springframework.transaction.annotation.Transactional;

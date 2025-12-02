@@ -4,11 +4,11 @@ public class OrganizationContextHolder {
 
     private static final ThreadLocal<String> CURRENT_ORG = new ThreadLocal<>();
 
-    public static void setCurrentOrgId(String tenantId) {
-        if (tenantId == null) {
+    public static void setCurrentOrgId(String orgId) {
+        if (orgId == null) {
             CURRENT_ORG.remove();
         } else {
-            CURRENT_ORG.set(tenantId);
+            CURRENT_ORG.set(orgId);
         }
     }
 

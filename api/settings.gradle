@@ -8,5 +8,8 @@
 
 rootProject.name = 'base_hub'
 
-include 'common'
 include 'admin'
+include 'app'
+include 'common'
+include 'domain'
+include 'base'

@@ -1,7 +1,7 @@
 package dev.ngb.base_hub.common.infra.jdbc.entity.user;
 
-import dev.ngb.base_hub.common.domain.constant.OrganizationUserRole;
-import dev.ngb.base_hub.common.domain.constant.OrganizationUserStatus;
+import dev.ngb.base_hub.domain.constant.OrganizationUserRole;
+import dev.ngb.base_hub.domain.constant.OrganizationUserStatus;
 import lombok.Builder;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;

@@ -1,7 +1,7 @@
 package dev.ngb.base_hub.admin;
 
-import dev.ngb.base_hub.common.base.annotation.AppComponent;
-import dev.ngb.base_hub.common.base.constant.ApplicationConstants;
+import dev.ngb.base_hub.base.annotation.AppComponent;
+import dev.ngb.base_hub.common.constant.ApplicationConstants;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;

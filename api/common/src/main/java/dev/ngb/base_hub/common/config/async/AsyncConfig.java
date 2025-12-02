@@ -9,7 +9,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 public class AsyncConfig implements AsyncConfigurer {
 
     @Bean(name = "orgAwareExecutor")
-    public ThreadPoolTaskExecutor tenantAwareExecutor() {
+    public ThreadPoolTaskExecutor orgAwareExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         executor.setCorePoolSize(8);
         executor.setMaxPoolSize(16);

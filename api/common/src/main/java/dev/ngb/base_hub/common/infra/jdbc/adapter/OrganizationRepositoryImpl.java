@@ -1,8 +1,8 @@
 package dev.ngb.base_hub.common.infra.jdbc.adapter;
 
-import dev.ngb.base_hub.common.base.annotation.Adapter;
-import dev.ngb.base_hub.common.domain.organization.model.Organization;
-import dev.ngb.base_hub.common.domain.organization.repository.OrganizationRepository;
+import dev.ngb.base_hub.base.annotation.Adapter;
+import dev.ngb.base_hub.domain.organization.model.Organization;
+import dev.ngb.base_hub.domain.organization.repository.OrganizationRepository;
 import dev.ngb.base_hub.common.infra.jdbc.base.JdbcBaseEntityRepository;
 import dev.ngb.base_hub.common.infra.jdbc.entity.organization.OrganizationEntity;
 import dev.ngb.base_hub.common.infra.jdbc.repository.organization.OrganizationJdbcRepository;

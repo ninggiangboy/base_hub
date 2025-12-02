@@ -11,10 +11,10 @@ public class OrgAwareTaskDecorator implements TaskDecorator {
     @Override
     @NonNull
     public Runnable decorate(@NonNull Runnable runnable) {
-        String tenantId = OrganizationContextHolder.getCurrentOrgId();
+        String orgId = OrganizationContextHolder.getCurrentOrgId();
         return () -> {
             try {
-                OrganizationContextHolder.setCurrentOrgId(tenantId);
+                OrganizationContextHolder.setCurrentOrgId(orgId);
                 runnable.run();
             } finally {
                 OrganizationContextHolder.clear();
