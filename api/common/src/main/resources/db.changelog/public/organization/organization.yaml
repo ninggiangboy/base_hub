@@ -1,0 +1,50 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-organization-table
+      author: khanhhd
+      changes:
+        - createTable:
+            tableName: organizations
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+              - column:
+                  name: code
+                  type: VARCHAR(100)
+              - column:
+                  name: domain
+                  type: VARCHAR(255)
+              - column:
+                  name: contact
+                  type: VARCHAR(255)
+              - column:
+                  name: description
+                  type: TEXT
+              - column:
+                  name: status
+                  type: VARCHAR(20)
+              - column:
+                  name: created_by_id
+                  type: VARCHAR
+              - column:
+                  name: updated_by_id
+                  type: VARCHAR
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+              - column:
+                  name: deleted_by_id
+                  type: VARCHAR
+              - column:
+                  name: deleted_at
+                  type: TIMESTAMP

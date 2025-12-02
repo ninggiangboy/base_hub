@@ -1,0 +1,26 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-outbox-event-table
+      author: khanhhd
+      changes:
+        - createTable:
+            tableName: outbox_events
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  defaultValueComputed: "uuidv7()"
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: type
+                  type: VARCHAR(255)
+              - column:
+                  name: payload
+                  type: TEXT
+              - column:
+                  name: org_id
+                  type: VARCHAR(100)
+              - column:
+                  name: created_at
+                  type: TIMESTAMP

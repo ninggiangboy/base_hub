@@ -1,6 +1,7 @@
 type Query {
-    getAllApps(filter: AppFilter, page: PageParams): PaginatedApp
-    getAppById(id: ID!): AppQueryResult
-    getAppVersions(appId: ID!, filter: AppVersionFilter, page: PageParams): PaginatedAppVersion
-    getAppVersionById(id: ID!): AppVersionQueryResult
+    _empty: String
+}
+
+type Mutation {
+    createOrganization: Boolean
 }

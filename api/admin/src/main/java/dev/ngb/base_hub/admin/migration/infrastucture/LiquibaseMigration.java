@@ -9,21 +9,25 @@ import liquibase.database.jvm.JdbcConnection;
 import liquibase.exception.LiquibaseException;
 import liquibase.resource.ClassLoaderResourceAccessor;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.sql.DataSource;
 import java.sql.*;
 
 @InfraService
 @RequiredArgsConstructor
+@Slf4j
 public class LiquibaseMigration implements MigrationPublicApi {
 
     private final DataSource dataSource;
-    private static final String CHANGELOG_PATH = "db/changelog/tenant/db.changelog-master.xml";
+    private static final String CHANGELOG_PATH = "db.changelog/schema/db.changelog-master.yaml";
 
     @Override
     public void performOrgSchemaMigration(String orgId) {
+        log.info("Starting schema migration for orgId={}", orgId);
+
         try (Connection connection = dataSource.getConnection()) {
-            // Check if schema exists
+
             boolean schemaExists;
             try (PreparedStatement ps = connection.prepareStatement(
                     "SELECT schema_name FROM information_schema.schemata WHERE schema_name = ?")) {
@@ -34,26 +38,39 @@ public class LiquibaseMigration implements MigrationPublicApi {
             }
 
             if (schemaExists) {
+                log.error("Schema {} already exists — aborting migration", orgId);
                 throw new IllegalStateException("Schema " + orgId + " already exists");
             }
 
-            // Create schema
-            String sql = "CREATE SCHEMA IF NOT EXISTS ?";
+            log.info("Creating schema {}", orgId);
+
+            // Escape double quotes and wrap in quotes for identifier safety
+            String quotedOrgId = "\"" + orgId.replace("\"", "\"\"") + "\"";
+            String sql = "CREATE SCHEMA IF NOT EXISTS " + quotedOrgId;
+
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
-                ps.setString(1, orgId);
                 ps.execute();
             }
-            // Change schema to the tenant's schema
+
             connection.setSchema(orgId);
-            // Create Liquibase Database object
+
+            log.info("Initializing Liquibase for schema {}", orgId);
             Database database = DatabaseFactory.getInstance()
                     .findCorrectDatabaseImplementation(new JdbcConnection(connection));
-            // Create Liquibase and run migration
-            Liquibase liquibase = new Liquibase(CHANGELOG_PATH,
+
+            Liquibase liquibase = new Liquibase(
+                    CHANGELOG_PATH,
                     new ClassLoaderResourceAccessor(),
-                    database);
-            liquibase.update(""); // run migrate
+                    database
+            );
+
+            log.info("Running Liquibase migration for schema {}", orgId);
+            liquibase.update("");
+
+            log.info("Migration completed successfully for schema {}", orgId);
+
         } catch (SQLException | LiquibaseException e) {
+            log.error("Migration failed for orgId={}", orgId, e);
             throw new RuntimeException(e);
         }
     }

@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - include:
+      file: ./outbox-event.yaml
+      relativeToChangelogFile: true
+  - includeAll:
+      path: organization
+      relativeToChangelogFile: true

@@ -28,7 +28,7 @@ public record CreateOrganizationCommand(
         if (StringUtils.isBlank(adminName)) {
             throw new IllegalArgumentException("Admin name cannot be null or blank");
         }
-        if (StringUtils.isEmail(adminEmail)) {
+        if (!StringUtils.isEmail(adminEmail)) {
             throw new IllegalArgumentException("Invalid admin email");
         }
     }

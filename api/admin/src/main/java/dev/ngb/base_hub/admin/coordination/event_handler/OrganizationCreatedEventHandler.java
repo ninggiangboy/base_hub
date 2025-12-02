@@ -5,36 +5,35 @@ import dev.ngb.base_hub.admin.shared.notification.public_api.NotificationPublicA
 import dev.ngb.base_hub.admin.shared.organization.public_api.OrganizationPublicApi;
 import dev.ngb.base_hub.admin.shared.user.public_api.UserPublicApi;
 import dev.ngb.base_hub.admin.shared.organization.event.OrganizationCreatedEvent;
-import dev.ngb.base_hub.common.api.tenant.OrganizationContextHolder;
+import dev.ngb.base_hub.common.context.OrganizationContextHolder;
 import dev.ngb.base_hub.common.base.annotation.EventHandleService;
-import dev.ngb.base_hub.common.base.event.IntegrationEventHandler;
+import dev.ngb.base_hub.common.base.event.EventHandler;
 import dev.ngb.base_hub.common.domain.base.BaseUser;
 import lombok.RequiredArgsConstructor;
 
 @EventHandleService
 @RequiredArgsConstructor
-public class OrganizationCreatedEventHandler implements IntegrationEventHandler<OrganizationCreatedEvent> {
+public class OrganizationCreatedEventHandler implements EventHandler<OrganizationCreatedEvent> {
 
-    private final OrganizationContextHolder organizationContextHolder;
-    private final UserPublicApi userPublicApi;
-    private final NotificationPublicApi notificationPublicApi;
-    private final OrganizationPublicApi organizationPublicApi;
+    //    private final UserPublicApi userPublicApi;
+//    private final NotificationPublicApi notificationPublicApi;
+//    private final OrganizationPublicApi organizationPublicApi;
     private final MigrationPublicApi migrationPublicApi;
 
     @Override
     public void handle(OrganizationCreatedEvent event) {
         try {
             migrationPublicApi.performOrgSchemaMigration(event.orgId());
-            organizationContextHolder.setCurrentOrgId(event.orgId());
-            BaseUser admin = userPublicApi.createDefaultAdminForOrganization(event.adminName(), event.adminEmail());
-            organizationPublicApi.completedInitOrganization();
-            notificationPublicApi.sendWelcomeEmailForUserOrg(admin);
+            OrganizationContextHolder.setCurrentOrgId(event.orgId());
+//            BaseUser admin = userPublicApi.createDefaultAdminForOrganization(event.adminName(), event.adminEmail());
+//            organizationPublicApi.completedInitOrganization();
+//            notificationPublicApi.sendWelcomeEmailForUserOrg(admin);
         } catch (RuntimeException ex) {
-            organizationPublicApi.failedInitOrganization();
+//            organizationPublicApi.failedInitOrganization();
             throw ex;
         } finally {
             // Clear the org context
-            organizationContextHolder.clear();
+            OrganizationContextHolder.clear();
         }
     }
 }

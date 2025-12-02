@@ -17,7 +17,7 @@ public class BaseUser extends DomainEntity<UUID> {
     protected Instant lastLoginAt;
 
     protected void initializeBaseUser(String loginId, String email, String displayName) {
-        this.loginId = loginId;
+        this.loginId = loginId.toUpperCase();
         this.email = email;
         this.displayName = displayName;
         this.credentialToken = generateCredentialToken();

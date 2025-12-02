@@ -3,7 +3,7 @@ package dev.ngb.base_hub.common.infra.jdbc.base;
 import dev.ngb.base_hub.common.base.domain.BaseDomainRepository;
 import dev.ngb.base_hub.common.base.domain.DomainEntity;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.ListCrudRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 @Transactional
 @RequiredArgsConstructor
 public abstract class JdbcBaseEntityRepository<
-        D extends DomainEntity<ID>, J, R extends CrudRepository<J, ID>, ID>
+        D extends DomainEntity<ID>, J, R extends ListCrudRepository<J, ID>, ID>
         implements BaseDomainRepository<D, ID> {
 
     protected final R jdbcRepo;
@@ -54,10 +54,7 @@ public abstract class JdbcBaseEntityRepository<
         entities.forEach(entity -> {
             assert entity.getId() == null : "New entity should not already have an ID";
         });
-        List<J> saved = new ArrayList<>();
-        jdbcRepo
-                .saveAll(entities.stream().map(this::mapToJdbc).collect(Collectors.toList()))
-                .forEach(saved::add);
+        List<J> saved = jdbcRepo.saveAll(entities.stream().map(this::mapToJdbc).collect(Collectors.toList()));
         return saved.stream().map(this::mapToDomain).collect(Collectors.toList());
     }
 
@@ -73,10 +70,7 @@ public abstract class JdbcBaseEntityRepository<
         for (D entity : entities) {
             assert entity.getId() != null : "Old entity should already have an ID";
         }
-        List<J> saved = new ArrayList<>();
-        jdbcRepo
-                .saveAll(entities.stream().map(this::mapToJdbc).collect(Collectors.toList()))
-                .forEach(saved::add);
+        List<J> saved = jdbcRepo.saveAll(entities.stream().map(this::mapToJdbc).collect(Collectors.toList()));
         return saved.stream().map(this::mapToDomain).collect(Collectors.toList());
     }
 
