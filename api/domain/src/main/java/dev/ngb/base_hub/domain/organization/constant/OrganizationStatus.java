@@ -1,4 +1,4 @@
-package dev.ngb.base_hub.domain.constant;
+package dev.ngb.base_hub.domain.organization.constant;
 
 public enum OrganizationStatus {
     INITIALIZING,

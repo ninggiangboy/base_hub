@@ -3,8 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/base_hub.iml" filepath="$PROJECT_DIR$/.idea/modules/base_hub.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/admin/base_hub.admin.main.iml" filepath="$PROJECT_DIR$/.idea/modules/admin/base_hub.admin.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/common/base_hub.common.main.iml" filepath="$PROJECT_DIR$/.idea/modules/common/base_hub.common.main.iml" />
     </modules>
   </component>
 </project>

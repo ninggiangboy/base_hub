@@ -1,7 +1,7 @@
 package dev.ngb.base_hub.domain.user.model;
 
-import dev.ngb.base_hub.domain.constant.OrganizationUserRole;
-import dev.ngb.base_hub.domain.constant.OrganizationUserStatus;
+import dev.ngb.base_hub.domain.user.constant.OrganizationUserRole;
+import dev.ngb.base_hub.domain.user.constant.OrganizationUserStatus;
 import lombok.Getter;
 
 @Getter

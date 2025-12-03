@@ -8,7 +8,7 @@ import java.time.Instant;
 import java.util.UUID;
 
 @Getter
-public class BaseUser extends DomainEntity<UUID> {
+public abstract class BaseUser extends DomainEntity<UUID> {
     protected String loginId;
     protected String email;
     protected String displayName;

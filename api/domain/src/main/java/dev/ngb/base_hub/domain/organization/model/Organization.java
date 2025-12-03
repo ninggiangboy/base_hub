@@ -1,9 +1,8 @@
 package dev.ngb.base_hub.domain.organization.model;
 
 import dev.ngb.base_hub.base.domain.DomainEntity;
-import dev.ngb.base_hub.domain.constant.OrganizationStatus;
+import dev.ngb.base_hub.domain.organization.constant.OrganizationStatus;
 import lombok.Getter;
-import org.springframework.context.annotation.Configuration;
 
 import java.time.Instant;
 import java.util.Map;
