@@ -33,6 +33,7 @@ public class OrganizationRepositoryImpl extends JdbcBaseEntityRepository<Organiz
                 jdbcEntity.contact(),
                 jdbcEntity.description(),
                 jdbcEntity.status(),
+                jdbcEntity.configuration(),
                 jdbcEntity.createdById(),
                 jdbcEntity.updatedById(),
                 jdbcEntity.createdAt(),

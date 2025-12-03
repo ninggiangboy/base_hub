@@ -3,11 +3,11 @@ package dev.ngb.base_hub.admin.coordination.event_handler;
 import dev.ngb.base_hub.admin.shared.migration.public_api.MigrationPublicApi;
 import dev.ngb.base_hub.admin.shared.organization.event.OrganizationCreatedEvent;
 import dev.ngb.base_hub.common.context.OrganizationContextHolder;
-import dev.ngb.base_hub.base.annotation.EventHandleService;
+import dev.ngb.base_hub.base.annotation.EventHandlerService;
 import dev.ngb.base_hub.base.event.EventHandler;
 import lombok.RequiredArgsConstructor;
 
-@EventHandleService
+@EventHandlerService
 @RequiredArgsConstructor
 public class OrganizationCreatedEventHandler implements EventHandler<OrganizationCreatedEvent> {
 

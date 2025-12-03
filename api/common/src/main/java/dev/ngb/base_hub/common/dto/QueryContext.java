@@ -1,4 +1,4 @@
-package dev.ngb.base_hub.base.dto;
+package dev.ngb.base_hub.common.dto;
 
 import lombok.Builder;
 import lombok.Getter;

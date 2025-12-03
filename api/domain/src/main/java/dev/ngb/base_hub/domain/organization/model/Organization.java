@@ -3,8 +3,10 @@ package dev.ngb.base_hub.domain.organization.model;
 import dev.ngb.base_hub.base.domain.DomainEntity;
 import dev.ngb.base_hub.domain.constant.OrganizationStatus;
 import lombok.Getter;
+import org.springframework.context.annotation.Configuration;
 
 import java.time.Instant;
+import java.util.Map;
 import java.util.UUID;
 
 @Getter
@@ -15,6 +17,8 @@ public class Organization extends DomainEntity<Long> {
     private String contact;
     private String description;
     private OrganizationStatus status;
+    private Map<String, Object> configuration;
+
 
     private Organization() {
     }
@@ -27,6 +31,7 @@ public class Organization extends DomainEntity<Long> {
             String contact,
             String description,
             OrganizationStatus status,
+            Map<String, Object> configuration,
             UUID createdById,
             UUID updatedById,
             Instant createdAt,
@@ -39,6 +44,7 @@ public class Organization extends DomainEntity<Long> {
         organization.contact = contact;
         organization.description = description;
         organization.status = status;
+        organization.configuration = configuration;
         organization.createdById = createdById;
         organization.updatedById = updatedById;
         organization.createdAt = createdAt;

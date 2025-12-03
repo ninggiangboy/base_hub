@@ -6,6 +6,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.Instant;
+import java.util.Map;
 import java.util.UUID;
 
 @Table("organizations")
@@ -18,6 +19,7 @@ public record OrganizationEntity(
         String contact,
         String description,
         OrganizationStatus status,
+        Map<String, Object> configuration,
         UUID createdById,
         UUID updatedById,
         Instant createdAt,

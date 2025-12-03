@@ -6,5 +6,5 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @AppComponent
-public @interface EventHandleService {
+public @interface EventHandlerService {
 }

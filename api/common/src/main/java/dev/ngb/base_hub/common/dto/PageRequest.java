@@ -1,4 +1,4 @@
-package dev.ngb.base_hub.base.dto;
+package dev.ngb.base_hub.common.dto;
 
 /**
  * Immutable record representing pagination and sorting parameters for queries.

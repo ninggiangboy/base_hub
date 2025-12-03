@@ -1,6 +1,6 @@
-package dev.ngb.base_hub.base.dto;
+package dev.ngb.base_hub.common.dto;
 
-import dev.ngb.base_hub.domain.constant.UserType;
+import dev.ngb.base_hub.common.constant.UserType;
 
 import java.time.Instant;
 import java.util.UUID;

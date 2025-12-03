@@ -1,4 +1,4 @@
-package dev.ngb.base_hub.base.dto;
+package dev.ngb.base_hub.common.dto;
 
 public record AuditUserPair(AuditUser createdBy, AuditUser updatedBy) {
 }
