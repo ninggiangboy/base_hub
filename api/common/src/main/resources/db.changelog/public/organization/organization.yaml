@@ -18,6 +18,8 @@ databaseChangeLog:
               - column:
                   name: code
                   type: VARCHAR(100)
+                  constraints:
+                    unique: true
               - column:
                   name: domain
                   type: VARCHAR(255)
@@ -30,6 +32,9 @@ databaseChangeLog:
               - column:
                   name: status
                   type: VARCHAR(20)
+              - column:
+                  name: configuration
+                  type: JSONB
               - column:
                   name: created_by_id
                   type: VARCHAR

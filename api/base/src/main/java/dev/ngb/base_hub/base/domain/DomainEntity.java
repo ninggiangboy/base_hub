@@ -11,6 +11,7 @@ import java.util.UUID;
 @Getter
 public abstract class DomainEntity<T> {
     protected T id;
+    protected Long version;
     protected UUID createdById;
     protected UUID updatedById;
     protected Instant createdAt;

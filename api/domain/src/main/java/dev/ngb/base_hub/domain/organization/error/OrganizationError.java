@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum OrganizationError implements DomainError {
-    DUPLICATE_ORGANIZATION_CODE("Organization code already exists");
+    DUPLICATE_CODE("Organization code already exists"),
+    VERSION_CONFLICT("Organization has new update");
     private final String message;
 }
