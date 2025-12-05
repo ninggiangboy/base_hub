@@ -20,9 +20,11 @@ public record OrganizationEntity(
         String description,
         OrganizationStatus status,
         Map<String, Object> configuration,
-        UUID createdById,
-        UUID updatedById,
+        String createdById,
+        String updatedById,
+        String deletedById,
         Instant createdAt,
-        Instant updatedAt
+        Instant updatedAt,
+        Instant deletedAt
 ) {
 }

@@ -2,7 +2,6 @@ package dev.ngb.base_hub.domain.organization.model;
 
 import dev.ngb.base_hub.base.domain.DomainEntity;
 import dev.ngb.base_hub.base.result.BusinessException;
-import dev.ngb.base_hub.base.result.Result;
 import dev.ngb.base_hub.domain.organization.constant.OrganizationStatus;
 import dev.ngb.base_hub.domain.organization.error.OrganizationError;
 import lombok.Getter;
@@ -33,8 +32,8 @@ public class Organization extends DomainEntity<Long> {
             String description,
             OrganizationStatus status,
             Map<String, Object> configuration,
-            UUID createdById,
-            UUID updatedById,
+            String createdById,
+            String updatedById,
             Instant createdAt,
             Instant updatedAt) {
         Organization organization = new Organization();
@@ -83,7 +82,7 @@ public class Organization extends DomainEntity<Long> {
                        String description,
                        Long version) {
         if (this.version.equals(version)) {
-            throw new BusinessException(OrganizationError.VERSION_CONFLICT);
+            throw new BusinessException(OrganizationError.ORG_DATA_UPDATED);
         }
         this.name = name;
         this.domain = domain;

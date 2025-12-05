@@ -7,15 +7,16 @@ import java.time.Instant;
 import java.util.Objects;
 import java.util.UUID;
 
-@Setter
 @Getter
 public abstract class DomainEntity<T> {
     protected T id;
     protected Long version;
-    protected UUID createdById;
-    protected UUID updatedById;
+    protected String createdById;
+    protected String updatedById;
+    protected String deletedById;
     protected Instant createdAt;
     protected Instant updatedAt;
+    protected Instant deletedAt;
 
     @Override
     public boolean equals(Object o) {
@@ -28,5 +29,20 @@ public abstract class DomainEntity<T> {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    public void markCreatedBy(String userId) {
+        createdById = userId;
+        createdAt = Instant.now();
+    }
+
+    public void markUpdatedBy(String userId) {
+        updatedById = userId;
+        updatedAt = Instant.now();
+    }
+
+    public void markDeletedBy(String userId) {
+        deletedById = userId;
+        deletedAt = Instant.now();
     }
 }
