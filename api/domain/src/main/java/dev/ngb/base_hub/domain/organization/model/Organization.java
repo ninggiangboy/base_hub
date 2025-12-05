@@ -32,6 +32,7 @@ public class Organization extends DomainEntity<Long> {
             String description,
             OrganizationStatus status,
             Map<String, Object> configuration,
+            Integer version,
             String createdById,
             String updatedById,
             Instant createdAt,
@@ -45,6 +46,7 @@ public class Organization extends DomainEntity<Long> {
         organization.description = description;
         organization.status = status;
         organization.configuration = configuration;
+        organization.version = version;
         organization.createdById = createdById;
         organization.updatedById = updatedById;
         organization.createdAt = createdAt;

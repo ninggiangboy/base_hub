@@ -11,19 +11,24 @@ import java.util.Optional;
 public interface OrganizationJdbcRepository extends ListCrudRepository<OrganizationEntity, Long> {
     @Override
     @Nonnull
-    @Query("SELECT * FROM organizations WHERE deleted_at is null")
+    @Query("SELECT * FROM organizations WHERE deleted_at IS NULL")
     List<OrganizationEntity> findAll();
 
     @Override
     @Nonnull
-    @Query("SELECT * FROM organizations WHERE id = :id and deleted_at is null")
+    @Query("SELECT * FROM organizations WHERE id = :id AND deleted_at IS NULL")
     Optional<OrganizationEntity> findById(@Nonnull Long id);
 
     @Override
     @Nonnull
-    @Query("SELECT * FROM organizations WHERE id in (:ids) and deleted_at is null")
+    @Query("SELECT * FROM organizations WHERE id in (:ids) AND deleted_at IS NULL")
     List<OrganizationEntity> findAllById(@Nonnull Iterable<Long> ids);
 
-    @Query("SELECT * FROM organizations WHERE code = :code and deleted_at is null")
+    @Override
+    @Nonnull
+    @Query("SELECT COUNT(*) FROM organizations WHERE id = :id AND deleted_at IS NULL")
+    boolean existsById(Long id);
+
+    @Query("SELECT * FROM organizations WHERE code = :code AND deleted_at IS NULL")
     Optional<OrganizationEntity> findByCode(String code);
 }

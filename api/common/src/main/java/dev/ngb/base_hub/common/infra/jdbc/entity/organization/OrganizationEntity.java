@@ -3,11 +3,11 @@ package dev.ngb.base_hub.common.infra.jdbc.entity.organization;
 import dev.ngb.base_hub.domain.organization.constant.OrganizationStatus;
 import lombok.Builder;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Version;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.Instant;
 import java.util.Map;
-import java.util.UUID;
 
 @Table("organizations")
 @Builder
@@ -20,6 +20,8 @@ public record OrganizationEntity(
         String description,
         OrganizationStatus status,
         Map<String, Object> configuration,
+        @Version
+        Long version,
         String createdById,
         String updatedById,
         String deletedById,

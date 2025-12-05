@@ -1,16 +1,14 @@
 package dev.ngb.base_hub.base.domain;
 
 import lombok.Getter;
-import lombok.Setter;
 
 import java.time.Instant;
 import java.util.Objects;
-import java.util.UUID;
 
 @Getter
 public abstract class DomainEntity<T> {
     protected T id;
-    protected Long version;
+    protected Integer version;
     protected String createdById;
     protected String updatedById;
     protected String deletedById;

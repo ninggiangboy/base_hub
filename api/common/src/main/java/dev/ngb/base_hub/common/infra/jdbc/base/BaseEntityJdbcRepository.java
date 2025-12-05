@@ -1,31 +1,51 @@
 package dev.ngb.base_hub.common.infra.jdbc.base;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.ngb.base_hub.base.domain.BaseDomainRepository;
 import dev.ngb.base_hub.base.domain.DomainEntity;
 import dev.ngb.base_hub.common.api.identity.IdentityService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.repository.ListCrudRepository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Transactional
 @RequiredArgsConstructor
+@Slf4j
 public abstract class BaseEntityJdbcRepository<
         D extends DomainEntity<ID>, J, R extends ListCrudRepository<J, ID>, ID>
         implements BaseDomainRepository<D, ID> {
 
     protected final R jdbcRepo;
     protected final IdentityService identityService;
+    protected final ObjectMapper objectMapper;
 
     protected abstract D mapToDomain(J jdbcEntity);
 
     protected abstract J mapToJdbc(D domainEntity);
+
+    protected String getCurrentUserId() {
+        return identityService.getCurrentUserId();
+    }
+
+    protected enum Action {
+        CREATE, UPDATE, DELETE
+    }
+
+    protected void logAudit(Action action, J savingEntity) {
+        String jsonEntity;
+        try {
+            jsonEntity = objectMapper.writeValueAsString(savingEntity);
+        } catch (JsonProcessingException e) {
+            jsonEntity = savingEntity.toString();
+        }
+        log.info("[DATABASE AUDIT] action={}, user={}, entity={}", action, getCurrentUserId(), jsonEntity);
+    }
 
     @Override
     public List<D> findAll() {
@@ -45,56 +65,62 @@ public abstract class BaseEntityJdbcRepository<
     @Override
     public D create(D entity) {
         Assert.isNull(entity.getId(), "New entity should not already have an ID");
-        entity.markCreatedBy(identityService.getCurrentUserId());
+        entity.markCreatedBy(getCurrentUserId());
         J saved = jdbcRepo.save(mapToJdbc(entity));
+        logAudit(Action.CREATE, saved);
         return mapToDomain(saved);
     }
 
     @Override
     public List<D> createAll(List<D> entities) {
-        String userId = identityService.getCurrentUserId();
+        String userId = getCurrentUserId();
         entities.forEach(entity -> {
             Assert.isNull(entity.getId(), "New entity should not already have an ID");
             entity.markCreatedBy(userId);
         });
         List<J> saved = jdbcRepo.saveAll(entities.stream().map(this::mapToJdbc).toList());
+        saved.forEach(j -> logAudit(Action.CREATE, j));
         return saved.stream().map(this::mapToDomain).toList();
     }
 
     @Override
     public D update(D entity) {
         Assert.notNull(entity.getId(), "Old entity should already have an ID");
-        entity.markUpdatedBy(identityService.getCurrentUserId());
+        entity.markUpdatedBy(getCurrentUserId());
         J saved = jdbcRepo.save(mapToJdbc(entity));
+        logAudit(Action.UPDATE, saved);
         return mapToDomain(saved);
     }
 
     @Override
     public List<D> updateAll(List<D> entities) {
-        String userId = identityService.getCurrentUserId();
+        String userId = getCurrentUserId();
         for (D entity : entities) {
             Assert.notNull(entity.getId(), "Old entity should already have an ID");
             entity.markUpdatedBy(userId);
         }
         List<J> saved = jdbcRepo.saveAll(entities.stream().map(this::mapToJdbc).toList());
+        saved.forEach(j -> logAudit(Action.UPDATE, j));
         return saved.stream().map(this::mapToDomain).toList();
     }
 
     @Override
     public void delete(D entity) {
         Assert.notNull(entity.getId(), "Cannot delete an entity without an ID");
-        entity.markDeletedBy(identityService.getCurrentUserId());
-        jdbcRepo.save(mapToJdbc(entity));
+        entity.markDeletedBy(getCurrentUserId());
+        J deleted = jdbcRepo.save(mapToJdbc(entity));
+        logAudit(Action.DELETE, deleted);
     }
 
     @Override
     public void deleteAll(List<D> entities) {
-        String userId = identityService.getCurrentUserId();
+        String userId = getCurrentUserId();
         for (D entity : entities) {
             Assert.notNull(entity.getId(), "Cannot delete an entity without an ID");
             entity.markDeletedBy(userId);
         }
-        jdbcRepo.saveAll(entities.stream().map(this::mapToJdbc).toList());
+        List<J> deleted = jdbcRepo.saveAll(entities.stream().map(this::mapToJdbc).toList());
+        deleted.forEach(j -> logAudit(Action.DELETE, j));
     }
 
     @Override
