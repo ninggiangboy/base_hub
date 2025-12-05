@@ -1,4 +1,4 @@
-package dev.ngb.base_hub.common.config;
+package dev.ngb.base_hub.common.config.jdbc;
 
 import dev.ngb.base_hub.common.constant.ApplicationConstants;
 import org.springframework.context.annotation.Configuration;

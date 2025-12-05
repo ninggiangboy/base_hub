@@ -1,4 +1,4 @@
-package dev.ngb.base_hub.admin.coordination.adapter;
+package dev.ngb.base_hub.admin.orchestration.adapter;
 
 import dev.ngb.base_hub.admin.shared.organization.event.OrganizationCreatedEvent;
 import dev.ngb.base_hub.common.api.event.EventMediator;

@@ -113,6 +113,7 @@ subprojects {
         implementation 'org.springdoc:springdoc-openapi-starter-webmvc-scalar:2.8.13'
 
         implementation 'com.github.f4b6a3:uuid-creator:6.1.0'
+        implementation 'com.apollographql.federation:federation-graphql-java-support:5.4.0'
     }
 
     test {
