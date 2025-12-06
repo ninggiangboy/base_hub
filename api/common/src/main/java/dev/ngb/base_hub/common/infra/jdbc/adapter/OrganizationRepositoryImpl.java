@@ -1,7 +1,8 @@
 package dev.ngb.base_hub.common.infra.jdbc.adapter;
 
-import dev.ngb.base_hub.base.annotation.Adapter;
 import dev.ngb.base_hub.common.api.identity.IdentityService;
+import tools.jackson.databind.ObjectMapper;
+import dev.ngb.base_hub.base.annotation.Adapter;
 import dev.ngb.base_hub.domain.organization.model.Organization;
 import dev.ngb.base_hub.domain.organization.repository.OrganizationRepository;
 import dev.ngb.base_hub.common.infra.jdbc.base.BaseEntityJdbcRepository;
@@ -12,11 +13,11 @@ import org.jspecify.annotations.NonNull;
 import java.util.Optional;
 
 @Adapter
-public class OrganizationJdbcRepositoryImpl extends BaseEntityJdbcRepository<Organization, OrganizationEntity, OrganizationJdbcRepository, Long>
+public class OrganizationRepositoryImpl extends BaseEntityJdbcRepository<Organization, OrganizationEntity, OrganizationJdbcRepository, Long>
         implements OrganizationRepository {
 
-    public OrganizationJdbcRepositoryImpl(OrganizationJdbcRepository jdbcRepo, IdentityService identityService) {
-        super(jdbcRepo, identityService);
+    public OrganizationRepositoryImpl(OrganizationJdbcRepository jdbcRepo) {
+        super(jdbcRepo);
     }
 
     @Override
@@ -35,6 +36,7 @@ public class OrganizationJdbcRepositoryImpl extends BaseEntityJdbcRepository<Org
                 jdbcEntity.description(),
                 jdbcEntity.status(),
                 jdbcEntity.configuration(),
+                jdbcEntity.version(),
                 jdbcEntity.createdById(),
                 jdbcEntity.updatedById(),
                 jdbcEntity.createdAt(),
@@ -52,6 +54,8 @@ public class OrganizationJdbcRepositoryImpl extends BaseEntityJdbcRepository<Org
                 .contact(domainEntity.getContact())
                 .description(domainEntity.getDescription())
                 .status(domainEntity.getStatus())
+                .configuration(domainEntity.getConfiguration())
+                .version(domainEntity.getVersion())
                 .createdById(domainEntity.getCreatedById())
                 .updatedById(domainEntity.getUpdatedById())
                 .deletedById(domainEntity.getDeletedById())

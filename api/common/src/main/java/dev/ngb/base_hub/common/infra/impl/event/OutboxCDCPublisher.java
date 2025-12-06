@@ -1,8 +1,8 @@
 package dev.ngb.base_hub.common.infra.impl.event;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.kafka.core.KafkaTemplate;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectMapper;
 import dev.ngb.base_hub.common.api.event.EventPublisher;
 import dev.ngb.base_hub.base.annotation.Topic;
 import dev.ngb.base_hub.common.context.OrganizationContextHolder;
@@ -14,7 +14,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.header.internals.RecordHeader;
 import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.kafka.core.KafkaTemplate;
 
 import java.nio.charset.StandardCharsets;
 import java.time.Instant;
@@ -46,7 +45,7 @@ public class OutboxCDCPublisher implements EventPublisher {
     }
 
     @KafkaListener(topics = "cdc.public.outbox_events", containerFactory = "kafkaListenerFactoryString")
-    public void handleOutboxEvent(String payload) throws JsonProcessingException, ClassNotFoundException {
+    public void handleOutboxEvent(String payload) throws ClassNotFoundException {
         JsonNode node = objectMapper.readTree(payload);
         JsonNode after = node.get("payload").get("after");
         if (after != null && !after.isNull()) {

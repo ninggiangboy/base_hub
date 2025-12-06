@@ -13,7 +13,7 @@ import org.springframework.context.annotation.FilterType;
         includeFilters = @ComponentScan.Filter(type = FilterType.ANNOTATION, classes = AppComponent.class)
 )
 public class BaseHubSystemAdminApplication {
-    public static void main(String[] args) {
+    static void main(String[] args) {
         SpringApplication.run(BaseHubSystemAdminApplication.class, args);
     }
 }

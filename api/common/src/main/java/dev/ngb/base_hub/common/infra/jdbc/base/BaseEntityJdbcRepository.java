@@ -1,7 +1,8 @@
 package dev.ngb.base_hub.common.infra.jdbc.base;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.NonNull;
+import org.springframework.beans.factory.annotation.Autowired;
+import tools.jackson.databind.ObjectMapper;
 import dev.ngb.base_hub.base.domain.BaseDomainRepository;
 import dev.ngb.base_hub.base.domain.DomainEntity;
 import dev.ngb.base_hub.common.api.identity.IdentityService;
@@ -22,8 +23,10 @@ public abstract class BaseEntityJdbcRepository<
         implements BaseDomainRepository<D, ID> {
 
     protected final R jdbcRepo;
-    protected final IdentityService identityService;
-    protected final ObjectMapper objectMapper;
+    @Autowired
+    protected IdentityService identityService;
+    @Autowired
+    protected ObjectMapper objectMapper;
 
     protected abstract D mapToDomain(J jdbcEntity);
 
@@ -38,12 +41,7 @@ public abstract class BaseEntityJdbcRepository<
     }
 
     protected void logAudit(Action action, J savingEntity) {
-        String jsonEntity;
-        try {
-            jsonEntity = objectMapper.writeValueAsString(savingEntity);
-        } catch (JsonProcessingException e) {
-            jsonEntity = savingEntity.toString();
-        }
+        String jsonEntity = objectMapper.writeValueAsString(savingEntity);
         log.info("[DATABASE AUDIT] action={}, user={}, entity={}", action, getCurrentUserId(), jsonEntity);
     }
 

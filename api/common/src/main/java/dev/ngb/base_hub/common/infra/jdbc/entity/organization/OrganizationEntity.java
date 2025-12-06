@@ -21,7 +21,7 @@ public record OrganizationEntity(
         OrganizationStatus status,
         Map<String, Object> configuration,
         @Version
-        Long version,
+        Integer version,
         String createdById,
         String updatedById,
         String deletedById,
