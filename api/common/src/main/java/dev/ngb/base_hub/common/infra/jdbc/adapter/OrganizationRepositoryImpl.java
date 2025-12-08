@@ -1,31 +1,31 @@
 package dev.ngb.base_hub.common.infra.jdbc.adapter;
 
-import tools.jackson.databind.ObjectMapper;
-import dev.ngb.base_hub.base.annotation.Adapter;
+import dev.ngb.base_hub.base.annotation.InfraService;
 import dev.ngb.base_hub.domain.organization.model.Organization;
 import dev.ngb.base_hub.domain.organization.repository.OrganizationRepository;
 import dev.ngb.base_hub.common.infra.jdbc.base.BaseEntityJdbcRepository;
 import dev.ngb.base_hub.common.infra.jdbc.entity.organization.OrganizationEntity;
 import dev.ngb.base_hub.common.infra.jdbc.repository.organization.OrganizationJdbcRepository;
 import org.jspecify.annotations.NonNull;
+import org.springframework.data.relational.core.query.Criteria;
 
 import java.util.Optional;
 
-@Adapter
-public class OrganizationRepositoryImpl extends BaseEntityJdbcRepository<Organization, OrganizationEntity, OrganizationJdbcRepository, Long>
+import static org.springframework.data.relational.core.query.Criteria.where;
+
+@InfraService
+public class OrganizationRepositoryImpl extends BaseEntityJdbcRepository<Organization, OrganizationEntity, Long>
         implements OrganizationRepository {
 
+    private final OrganizationJdbcRepository jdbcRepo;
+
     public OrganizationRepositoryImpl(OrganizationJdbcRepository jdbcRepo) {
-        super(jdbcRepo);
+        super(OrganizationEntity.class);
+        this.jdbcRepo = jdbcRepo;
     }
 
     @Override
-    public Optional<Organization> findByCode(String code) {
-        return jdbcRepo.findByCode(code).map(this::mapToDomain);
-    }
-
-    @Override
-    protected Organization mapToDomain(OrganizationEntity jdbcEntity) {
+    protected Organization mapToDomain(@NonNull OrganizationEntity jdbcEntity) {
         return Organization.reconstruct(
                 jdbcEntity.id(),
                 jdbcEntity.name(),
@@ -62,5 +62,11 @@ public class OrganizationRepositoryImpl extends BaseEntityJdbcRepository<Organiz
                 .updatedAt(domainEntity.getUpdatedAt())
                 .deletedAt(domainEntity.getDeletedAt())
                 .build();
+    }
+
+    @Override
+    public Optional<Organization> findByCode(String code) {
+        Criteria findByCodeCriteria = where("code").is(code);
+        return findOneBy(findByCodeCriteria);
     }
 }

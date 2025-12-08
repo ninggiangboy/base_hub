@@ -8,6 +8,12 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
 
 @SpringBootApplication(scanBasePackages = Constants.BASE_PACKAGE)
+@ComponentScan(
+        includeFilters = @ComponentScan.Filter(
+                type = FilterType.ANNOTATION,
+                classes = AppComponent.class
+        )
+)
 public class BaseHubSystemAdminApplication {
     static void main(String[] args) {
         SpringApplication.run(BaseHubSystemAdminApplication.class, args);

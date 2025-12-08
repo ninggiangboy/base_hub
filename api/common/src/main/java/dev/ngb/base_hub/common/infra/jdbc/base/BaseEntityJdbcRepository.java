@@ -1,6 +1,9 @@
 package dev.ngb.base_hub.common.infra.jdbc.base;
 
+import org.jspecify.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jdbc.core.JdbcAggregateTemplate;
+import org.springframework.data.relational.core.query.Criteria;
 import tools.jackson.databind.ObjectMapper;
 import dev.ngb.base_hub.base.domain.BaseDomainRepository;
 import dev.ngb.base_hub.base.domain.DomainEntity;
@@ -14,14 +17,16 @@ import org.springframework.util.Assert;
 import java.util.List;
 import java.util.Optional;
 
+import static org.springframework.data.relational.core.query.Criteria.where;
+import static org.springframework.data.relational.core.query.Query.query;
+
 @Transactional
 @RequiredArgsConstructor
 @Slf4j
-public abstract class BaseEntityJdbcRepository<
-        D extends DomainEntity<ID>, J, R extends ListCrudRepository<J, ID>, ID>
-        implements BaseDomainRepository<D, ID> {
-
-    protected final R jdbcRepo;
+public abstract class BaseEntityJdbcRepository<D extends DomainEntity<ID>, J, ID> implements BaseDomainRepository<D, ID> {
+    private final Class<J> entityClass;
+    @Autowired
+    protected JdbcAggregateTemplate template;
     @Autowired
     protected IdentityService identityService;
     @Autowired
@@ -35,6 +40,8 @@ public abstract class BaseEntityJdbcRepository<
         return identityService.getCurrentUserId();
     }
 
+    protected final Criteria defaultCriteria = where("deleted_at").isNull();
+
     protected enum Action {
         CREATE, UPDATE, DELETE
     }
@@ -44,26 +51,44 @@ public abstract class BaseEntityJdbcRepository<
         log.info("[DATABASE AUDIT] action={}, user={}, entity={}", action, getCurrentUserId(), jsonEntity);
     }
 
+    protected List<D> findAllBy(@Nullable Criteria criteria) {
+        Criteria finalCriteria = Optional.ofNullable(criteria).map(defaultCriteria::and).orElse(defaultCriteria);
+        return template.findAll(query(finalCriteria), entityClass).stream().map(this::mapToDomain).toList();
+    }
+
+    protected Optional<D> findOneBy(@Nullable Criteria criteria) {
+        Criteria finalCriteria = Optional.ofNullable(criteria).map(defaultCriteria::and).orElse(defaultCriteria);
+        return template.findOne(query(finalCriteria), entityClass).map(this::mapToDomain);
+    }
+
     @Override
     public List<D> findAll() {
-        return jdbcRepo.findAll().stream().map(this::mapToDomain).toList();
+        return findAllBy(null);
     }
 
     @Override
     public Optional<D> findById(ID id) {
-        return jdbcRepo.findById(id).map(this::mapToDomain);
+        Criteria findByIdCriteria = where("id").is(id);
+        return findOneBy(findByIdCriteria);
     }
 
     @Override
     public List<D> findByIds(List<ID> ids) {
-        return jdbcRepo.findAllById(ids).stream().map(this::mapToDomain).toList();
+        Criteria findByIdsCriteria = where("id").in(ids);
+        return findAllBy(findByIdsCriteria);
+    }
+
+    @Override
+    public boolean existsById(ID id) {
+        Criteria findByIdCriteria = where("id").is(id);
+        return template.existsById(query(defaultCriteria.and(findByIdCriteria)), entityClass);
     }
 
     @Override
     public D create(D entity) {
         Assert.isNull(entity.getId(), "New entity should not already have an ID");
         entity.markCreatedBy(getCurrentUserId());
-        J saved = jdbcRepo.save(mapToJdbc(entity));
+        J saved = template.insert(mapToJdbc(entity));
         logAudit(Action.CREATE, saved);
         return mapToDomain(saved);
     }
@@ -75,7 +100,7 @@ public abstract class BaseEntityJdbcRepository<
             Assert.isNull(entity.getId(), "New entity should not already have an ID");
             entity.markCreatedBy(userId);
         });
-        List<J> saved = jdbcRepo.saveAll(entities.stream().map(this::mapToJdbc).toList());
+        List<J> saved = template.insertAll(entities.stream().map(this::mapToJdbc).toList());
         saved.forEach(j -> logAudit(Action.CREATE, j));
         return saved.stream().map(this::mapToDomain).toList();
     }
@@ -84,7 +109,7 @@ public abstract class BaseEntityJdbcRepository<
     public D update(D entity) {
         Assert.notNull(entity.getId(), "Old entity should already have an ID");
         entity.markUpdatedBy(getCurrentUserId());
-        J saved = jdbcRepo.save(mapToJdbc(entity));
+        J saved = template.update(mapToJdbc(entity));
         logAudit(Action.UPDATE, saved);
         return mapToDomain(saved);
     }
@@ -96,7 +121,7 @@ public abstract class BaseEntityJdbcRepository<
             Assert.notNull(entity.getId(), "Old entity should already have an ID");
             entity.markUpdatedBy(userId);
         }
-        List<J> saved = jdbcRepo.saveAll(entities.stream().map(this::mapToJdbc).toList());
+        List<J> saved = template.updateAll(entities.stream().map(this::mapToJdbc).toList());
         saved.forEach(j -> logAudit(Action.UPDATE, j));
         return saved.stream().map(this::mapToDomain).toList();
     }
@@ -105,7 +130,7 @@ public abstract class BaseEntityJdbcRepository<
     public void delete(D entity) {
         Assert.notNull(entity.getId(), "Cannot delete an entity without an ID");
         entity.markDeletedBy(getCurrentUserId());
-        J deleted = jdbcRepo.save(mapToJdbc(entity));
+        J deleted = template.update(mapToJdbc(entity));
         logAudit(Action.DELETE, deleted);
     }
 
@@ -116,12 +141,7 @@ public abstract class BaseEntityJdbcRepository<
             Assert.notNull(entity.getId(), "Cannot delete an entity without an ID");
             entity.markDeletedBy(userId);
         }
-        List<J> deleted = jdbcRepo.saveAll(entities.stream().map(this::mapToJdbc).toList());
+        List<J> deleted = template.updateAll(entities.stream().map(this::mapToJdbc).toList());
         deleted.forEach(j -> logAudit(Action.DELETE, j));
-    }
-
-    @Override
-    public Boolean existsById(ID id) {
-        return jdbcRepo.existsById(id);
     }
 }

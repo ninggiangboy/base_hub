@@ -12,6 +12,8 @@ public interface BaseDomainRepository<T extends DomainEntity<ID>, ID> {
 
     T create(T entity);
 
+    boolean existsById(ID id);
+
     List<T> createAll(List<T> entities);
 
     T update(T entity);
@@ -22,5 +24,4 @@ public interface BaseDomainRepository<T extends DomainEntity<ID>, ID> {
 
     void deleteAll(List<T> entities);
 
-    Boolean existsById(ID id);
 }
