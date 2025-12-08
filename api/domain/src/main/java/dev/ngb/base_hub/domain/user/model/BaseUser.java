@@ -15,6 +15,7 @@ public abstract class BaseUser extends DomainEntity<UUID> {
     protected String hashedPassword;
     protected String credentialToken;
     protected Instant lastLoginAt;
+    protected Instant firstLoginAt;
 
     protected void initializeBaseUser(String loginId, String email, String displayName) {
         this.loginId = loginId.toUpperCase();
@@ -28,12 +29,19 @@ public abstract class BaseUser extends DomainEntity<UUID> {
         return this.credentialToken;
     }
 
-    public void resetPassword(String newHashedPassword, String credentialToken) {
+    public void setPassword(String newHashedPassword, String credentialToken) {
         if (!StringUtils.equals(this.credentialToken, credentialToken)) {
             throw new IllegalArgumentException("Invalid credential token");
         }
         this.hashedPassword = newHashedPassword;
         this.credentialToken = null;
+    }
+
+    public void recordLogin() {
+        if (this.firstLoginAt == null) {
+            this.firstLoginAt = Instant.now();
+        }
+        this.lastLoginAt = Instant.now();
     }
 
     protected String generateCredentialToken() {

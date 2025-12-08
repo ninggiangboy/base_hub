@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum OrganizationError implements DomainError {
+    INVALID_ORG_DATA("Organization data is invalid"),
     DUPLICATE_ORG_CODE("Organization code already exists"),
     ORG_DATA_UPDATED("Organization was updated by another user"),
     NOT_FOUND_ORG("Organization not found"),

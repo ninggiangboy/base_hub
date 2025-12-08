@@ -31,8 +31,8 @@ public class OrganizationUser extends BaseUser {
     }
 
     @Override
-    public void resetPassword(String newHashedPassword, String credentialToken) {
-        super.resetPassword(newHashedPassword, credentialToken);
+    public void setPassword(String newHashedPassword, String credentialToken) {
+        super.setPassword(newHashedPassword, credentialToken);
         if (this.status == OrganizationUserStatus.INITIAL) {
             this.status = OrganizationUserStatus.ACTIVE;
         }

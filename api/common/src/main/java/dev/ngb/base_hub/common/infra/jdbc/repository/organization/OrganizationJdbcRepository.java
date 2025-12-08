@@ -1,7 +1,7 @@
 package dev.ngb.base_hub.common.infra.jdbc.repository.organization;
 
 import dev.ngb.base_hub.common.infra.jdbc.entity.organization.OrganizationEntity;
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.repository.ListCrudRepository;
 
@@ -10,22 +10,21 @@ import java.util.Optional;
 
 public interface OrganizationJdbcRepository extends ListCrudRepository<OrganizationEntity, Long> {
     @Override
-    @Nonnull
+    @NonNull
     @Query("SELECT * FROM organizations WHERE deleted_at IS NULL")
     List<OrganizationEntity> findAll();
 
     @Override
-    @Nonnull
+    @NonNull
     @Query("SELECT * FROM organizations WHERE id = :id AND deleted_at IS NULL")
-    Optional<OrganizationEntity> findById(@Nonnull Long id);
+    Optional<OrganizationEntity> findById(@NonNull Long id);
 
     @Override
-    @Nonnull
+    @NonNull
     @Query("SELECT * FROM organizations WHERE id in (:ids) AND deleted_at IS NULL")
-    List<OrganizationEntity> findAllById(@Nonnull Iterable<Long> ids);
+    List<OrganizationEntity> findAllById(@NonNull Iterable<Long> ids);
 
     @Override
-    @Nonnull
     @Query("SELECT COUNT(*) FROM organizations WHERE id = :id AND deleted_at IS NULL")
     boolean existsById(Long id);
 

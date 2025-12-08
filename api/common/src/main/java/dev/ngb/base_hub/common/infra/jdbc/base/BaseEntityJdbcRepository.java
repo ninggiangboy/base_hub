@@ -1,6 +1,5 @@
 package dev.ngb.base_hub.common.infra.jdbc.base;
 
-import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import tools.jackson.databind.ObjectMapper;
 import dev.ngb.base_hub.base.domain.BaseDomainRepository;

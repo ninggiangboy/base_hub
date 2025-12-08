@@ -2,6 +2,7 @@ package dev.ngb.base_hub.common.infra.jdbc.entity.organization;
 
 import dev.ngb.base_hub.domain.organization.constant.OrganizationStatus;
 import lombok.Builder;
+import org.jspecify.annotations.NonNull;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Version;
 import org.springframework.data.relational.core.mapping.Table;
