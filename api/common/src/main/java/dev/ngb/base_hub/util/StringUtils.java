@@ -1,4 +1,4 @@
-package dev.ngb.base_hub.base.util;
+package dev.ngb.base_hub.util;
 
 import jakarta.xml.bind.DatatypeConverter;
 import lombok.AccessLevel;

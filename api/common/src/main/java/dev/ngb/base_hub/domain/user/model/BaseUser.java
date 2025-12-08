@@ -1,7 +1,7 @@
 package dev.ngb.base_hub.domain.user.model;
 
 import dev.ngb.base_hub.base.domain.DomainEntity;
-import dev.ngb.base_hub.base.util.StringUtils;
+import dev.ngb.base_hub.util.StringUtils;
 import lombok.Getter;
 
 import java.time.Instant;

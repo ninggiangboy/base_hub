@@ -1,4 +1,4 @@
-package dev.ngb.base_hub.base.util;
+package dev.ngb.base_hub.util;
 
 import com.github.f4b6a3.uuid.UuidCreator;
 import lombok.AccessLevel;

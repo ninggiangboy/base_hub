@@ -11,7 +11,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 
-import static dev.ngb.base_hub.base.util.StringUtils.isBlank;
+import static dev.ngb.base_hub.util.StringUtils.isBlank;
 
 @Getter
 public class Organization extends DomainEntity<Long> {

@@ -1,6 +1,5 @@
 package dev.ngb.base_hub.common.infra.jdbc.adapter;
 
-import dev.ngb.base_hub.common.api.identity.IdentityService;
 import tools.jackson.databind.ObjectMapper;
 import dev.ngb.base_hub.base.annotation.Adapter;
 import dev.ngb.base_hub.domain.organization.model.Organization;
