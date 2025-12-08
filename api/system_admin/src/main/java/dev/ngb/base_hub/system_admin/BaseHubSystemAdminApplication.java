@@ -7,14 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
 
-@SpringBootApplication
-@ComponentScan(
-        basePackages = Constants.BASE_PACKAGE,
-        includeFilters = @ComponentScan.Filter(
-                type = FilterType.ANNOTATION,
-                classes = AppComponent.class
-        )
-)
+@SpringBootApplication(scanBasePackages = Constants.BASE_PACKAGE)
 public class BaseHubSystemAdminApplication {
     static void main(String[] args) {
         SpringApplication.run(BaseHubSystemAdminApplication.class, args);

@@ -10,4 +10,5 @@ rootProject.name = 'base_hub'
 
 include 'system_admin'
 include 'app'
+include 'ws_gateway'
 include 'common'
