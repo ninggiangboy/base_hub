@@ -132,6 +132,10 @@ services:
     container_name: base_hub_debezium
     ports:
       - "8083:8083"
+    volumes:
+      - ./connectors:/kafka/connectors
+      - ./connectors/register.sh:/register.sh
+    entrypoint: ["/bin/bash", "/register.sh"]
     environment:
       BOOTSTRAP_SERVERS: kafka:9094
       GROUP_ID: "1"
