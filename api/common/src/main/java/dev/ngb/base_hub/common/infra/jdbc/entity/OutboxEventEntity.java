@@ -7,7 +7,7 @@ import org.springframework.data.relational.core.mapping.Table;
 import java.time.Instant;
 import java.util.UUID;
 
-@Table(name = "outbox_events")
+@Table(name = "outbox_events", schema = "public")
 @Builder
 public record OutboxEventEntity(
         @Id UUID id,

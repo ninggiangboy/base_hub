@@ -36,6 +36,9 @@ databaseChangeLog:
                   name: configuration
                   type: JSONB
               - column:
+                  name: version
+                  type: INT
+              - column:
                   name: created_by_id
                   type: VARCHAR
               - column:

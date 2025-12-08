@@ -15,7 +15,7 @@ public class OrganizationResolver {
     private final CommandHandler<CreateOrganizationCommand, Void> createOrganizationCommandHandler;
 
     @MutationMapping()
-    public Boolean createOrganization() {
+    public void createOrganization() {
         CreateOrganizationCommand command = new CreateOrganizationCommand(
                 "Organization Name",
                 UUID.randomUUID().toString(),
@@ -25,7 +25,6 @@ public class OrganizationResolver {
                 "Admin Name",
                 "admin@mail.com");
         createOrganizationCommandHandler.execute(command);
-        return true;
     }
 
 }

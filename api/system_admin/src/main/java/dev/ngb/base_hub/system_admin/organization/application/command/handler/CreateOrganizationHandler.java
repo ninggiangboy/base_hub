@@ -21,7 +21,7 @@ import java.util.Optional;
 public class CreateOrganizationHandler implements CommandHandler<CreateOrganizationCommand, Void> {
 
     private final OrganizationRepository organizationRepository;
-    private final UserPublicApi userPublicApi;
+    //    private final UserPublicApi userPublicApi;
     private final MigrationService migrationService;
 
     @Override
@@ -44,10 +44,10 @@ public class CreateOrganizationHandler implements CommandHandler<CreateOrganizat
 
         // thinking about moving to event driven
         migrationService.performSchemaMigration(organization.getId().toString());
-        userPublicApi.createDefaultAdminForOrganization(
-                command.adminName(),
-                command.adminEmail()
-        );
+//        userPublicApi.createDefaultAdminForOrganization(
+//                command.adminName(),
+//                command.adminEmail()
+//        );
         return null;
     }
 

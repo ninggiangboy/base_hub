@@ -7,8 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
 
-@SpringBootApplication(scanBasePackages = Constants.BASE_PACKAGE)
+@SpringBootApplication
 @ComponentScan(
+        basePackages = Constants.BASE_PACKAGE,
         includeFilters = @ComponentScan.Filter(
                 type = FilterType.ANNOTATION,
                 classes = AppComponent.class

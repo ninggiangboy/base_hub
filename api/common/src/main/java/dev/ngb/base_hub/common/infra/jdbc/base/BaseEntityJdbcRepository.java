@@ -10,10 +10,10 @@ import dev.ngb.base_hub.base.domain.DomainEntity;
 import dev.ngb.base_hub.common.api.identity.IdentityService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.repository.ListCrudRepository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,6 +31,13 @@ public abstract class BaseEntityJdbcRepository<D extends DomainEntity<ID>, J, ID
     protected IdentityService identityService;
     @Autowired
     protected ObjectMapper objectMapper;
+
+    @SuppressWarnings("unchecked")
+    protected BaseEntityJdbcRepository() {
+        this.entityClass = (Class<J>) ((ParameterizedType) getClass()
+                .getGenericSuperclass())
+                .getActualTypeArguments()[1];
+    }
 
     protected abstract D mapToDomain(J jdbcEntity);
 

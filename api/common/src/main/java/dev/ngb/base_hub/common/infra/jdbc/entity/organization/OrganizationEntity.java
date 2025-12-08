@@ -9,7 +9,7 @@ import org.springframework.data.relational.core.mapping.Table;
 import java.time.Instant;
 import java.util.Map;
 
-@Table("organizations")
+@Table(value = "organizations", schema = "public")
 @Builder
 public record OrganizationEntity(
         @Id Long id,

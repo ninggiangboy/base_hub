@@ -6,9 +6,9 @@ import dev.ngb.base_hub.domain.organization.repository.OrganizationRepository;
 import dev.ngb.base_hub.common.infra.jdbc.base.BaseEntityJdbcRepository;
 import dev.ngb.base_hub.common.infra.jdbc.entity.organization.OrganizationEntity;
 import dev.ngb.base_hub.common.infra.jdbc.repository.organization.OrganizationJdbcRepository;
-import org.jspecify.annotations.NonNull;
 import org.springframework.data.relational.core.query.Criteria;
 
+import java.util.Map;
 import java.util.Optional;
 
 import static org.springframework.data.relational.core.query.Criteria.where;
@@ -20,12 +20,11 @@ public class OrganizationRepositoryImpl extends BaseEntityJdbcRepository<Organiz
     private final OrganizationJdbcRepository jdbcRepo;
 
     public OrganizationRepositoryImpl(OrganizationJdbcRepository jdbcRepo) {
-        super(OrganizationEntity.class);
         this.jdbcRepo = jdbcRepo;
     }
 
     @Override
-    protected Organization mapToDomain(@NonNull OrganizationEntity jdbcEntity) {
+    protected Organization mapToDomain(OrganizationEntity jdbcEntity) {
         return Organization.reconstruct(
                 jdbcEntity.id(),
                 jdbcEntity.name(),
@@ -34,7 +33,7 @@ public class OrganizationRepositoryImpl extends BaseEntityJdbcRepository<Organiz
                 jdbcEntity.contact(),
                 jdbcEntity.description(),
                 jdbcEntity.status(),
-                jdbcEntity.configuration(),
+                Map.of(),
                 jdbcEntity.version(),
                 jdbcEntity.createdById(),
                 jdbcEntity.updatedById(),
@@ -44,7 +43,7 @@ public class OrganizationRepositoryImpl extends BaseEntityJdbcRepository<Organiz
     }
 
     @Override
-    protected OrganizationEntity mapToJdbc(@NonNull Organization domainEntity) {
+    protected OrganizationEntity mapToJdbc(Organization domainEntity) {
         return OrganizationEntity.builder()
                 .id(domainEntity.getId())
                 .name(domainEntity.getName())
@@ -53,7 +52,7 @@ public class OrganizationRepositoryImpl extends BaseEntityJdbcRepository<Organiz
                 .contact(domainEntity.getContact())
                 .description(domainEntity.getDescription())
                 .status(domainEntity.getStatus())
-                .configuration(domainEntity.getConfiguration())
+//                .configuration(domainEntity.getConfiguration())
                 .version(domainEntity.getVersion())
                 .createdById(domainEntity.getCreatedById())
                 .updatedById(domainEntity.getUpdatedById())

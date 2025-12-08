@@ -114,6 +114,7 @@ public class LiquibaseMigrationService implements MigrationService {
         );
 
         liquibase.update("");
+        connection.setSchema("public");
     }
 
     private List<String> findAllTargetSchemas(@NonNull Connection connection) throws SQLException {
