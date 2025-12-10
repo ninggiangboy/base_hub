@@ -1,13 +1,14 @@
 package dev.ngb.base_hub.ws_gateway.infrastructure.websocket;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import dev.ngb.base_hub.base.annotation.InfraService;
-import dev.ngb.base_hub.common.api.websocket.SessionManager;
+import dev.ngb.base_hub.application.spi.websocket.WebSocketMessageSender;
+import dev.ngb.base_hub.common.annotation.InfraService;
+import dev.ngb.base_hub.application.spi.websocket.SessionManager;
 import dev.ngb.base_hub.common.domain.websocket.WebSocketEvent;
 import dev.ngb.base_hub.ws_gateway.infrastructure.redis.RedisMessageSubscriber;
 import dev.ngb.base_hub.ws_gateway.infrastructure.redis.RedisWebSocketMessagePublisher;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
 import java.util.Set;
 
 /**
@@ -17,7 +18,7 @@ import java.util.Set;
 @Slf4j
 @InfraService
 @RequiredArgsConstructor
-public class WebSocketMessageSenderImpl implements dev.ngb.base_hub.common.api.websocket.WebSocketMessageSender {
+public class WebSocketMessageSenderImpl implements WebSocketMessageSender {
 
     private final SessionManager sessionManager;
     private final RedisWebSocketMessagePublisher redisPublisher;

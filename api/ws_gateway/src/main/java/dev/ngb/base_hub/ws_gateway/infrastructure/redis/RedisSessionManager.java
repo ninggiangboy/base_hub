@@ -1,7 +1,7 @@
 package dev.ngb.base_hub.ws_gateway.infrastructure.redis;
 
-import dev.ngb.base_hub.base.annotation.InfraService;
-import dev.ngb.base_hub.common.api.websocket.SessionManager;
+import dev.ngb.base_hub.common.annotation.InfraService;
+import dev.ngb.base_hub.application.spi.websocket.SessionManager;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RMap;
 import org.redisson.api.RSet;

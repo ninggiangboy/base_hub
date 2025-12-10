@@ -1,6 +1,6 @@
 package dev.ngb.base_hub.ws_gateway.infrastructure.config;
 
-import dev.ngb.base_hub.base.annotation.InfraService;
+import dev.ngb.base_hub.common.annotation.InfraService;
 import dev.ngb.base_hub.ws_gateway.delivery.websocket.WebSocketHandler;
 import dev.ngb.base_hub.ws_gateway.delivery.websocket.WebSocketHandshakeInterceptor;
 import lombok.RequiredArgsConstructor;

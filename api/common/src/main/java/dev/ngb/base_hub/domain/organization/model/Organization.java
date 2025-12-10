@@ -1,20 +1,18 @@
 package dev.ngb.base_hub.domain.organization.model;
 
-import dev.ngb.base_hub.base.domain.DomainEntity;
-import dev.ngb.base_hub.base.result.BusinessException;
+import dev.ngb.base_hub.domain.base.BaseDomainEntity;
+import dev.ngb.base_hub.domain.base.BusinessException;
 import dev.ngb.base_hub.domain.organization.constant.OrganizationStatus;
 import dev.ngb.base_hub.domain.organization.error.OrganizationError;
 import lombok.Getter;
 
 import java.time.Instant;
-import java.util.Locale;
 import java.util.Map;
-import java.util.UUID;
 
-import static dev.ngb.base_hub.util.StringUtils.isBlank;
+import static dev.ngb.base_hub.common.util.StringUtils.isBlank;
 
 @Getter
-public class Organization extends DomainEntity<Long> {
+public class Organization extends BaseDomainEntity<Long> {
     private String name;
     private String code;
     private String domain;

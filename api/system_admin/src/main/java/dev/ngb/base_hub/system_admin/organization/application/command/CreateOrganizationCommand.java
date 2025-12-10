@@ -1,7 +1,7 @@
 package dev.ngb.base_hub.system_admin.organization.application.command;
 
-import dev.ngb.base_hub.base.command.Command;
-import dev.ngb.base_hub.util.StringUtils;
+import dev.ngb.base_hub.application.use_case.Command;
+import dev.ngb.base_hub.common.util.StringUtils;
 
 public record CreateOrganizationCommand(
         String name,

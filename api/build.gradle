@@ -75,6 +75,8 @@ subprojects {
         implementation 'org.springframework.boot:spring-boot-kafka'
         implementation 'org.springframework.boot:spring-boot-starter-liquibase'
         implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:4.0.0'
+        implementation 'org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j'
+        implementation 'io.github.resilience4j:resilience4j-all:2.3.0'
 //      implementation 'org.springframework.ai:spring-ai-markdown-document-reader'
 //      implementation 'org.springframework.ai:spring-ai-pdf-document-reader'
 //      implementation 'org.springframework.ai:spring-ai-starter-model-vertex-ai-embedding'

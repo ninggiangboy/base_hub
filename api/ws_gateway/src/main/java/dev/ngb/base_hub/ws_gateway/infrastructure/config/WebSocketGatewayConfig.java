@@ -1,7 +1,7 @@
 package dev.ngb.base_hub.ws_gateway.infrastructure.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import dev.ngb.base_hub.base.annotation.InfraService;
+import dev.ngb.base_hub.common.annotation.InfraService;
 import dev.ngb.base_hub.common.domain.websocket.GroupWebSocketEvent;
 import dev.ngb.base_hub.common.domain.websocket.UserWebSocketEvent;
 import org.springframework.context.annotation.Bean;

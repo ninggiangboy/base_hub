@@ -1,8 +1,8 @@
 package dev.ngb.base_hub.ws_gateway.infrastructure.redis;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import dev.ngb.base_hub.base.annotation.InfraService;
-import dev.ngb.base_hub.common.api.websocket.SessionManager;
+import dev.ngb.base_hub.common.annotation.InfraService;
+import dev.ngb.base_hub.application.spi.websocket.SessionManager;
 import dev.ngb.base_hub.common.domain.websocket.WebSocketEvent;
 import dev.ngb.base_hub.ws_gateway.infrastructure.websocket.WebSocketSessionRegistry;
 import lombok.RequiredArgsConstructor;

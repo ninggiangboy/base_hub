@@ -2,7 +2,7 @@ package dev.ngb.base_hub.common.domain.websocket;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import dev.ngb.base_hub.base.event.IntegrationEvent;
+import dev.ngb.base_hub.application.event.ApplicationEvent;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,10 +18,10 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type")
 @JsonSubTypes({
-    @JsonSubTypes.Type(value = UserWebSocketEvent.class, name = "USER"),
-    @JsonSubTypes.Type(value = GroupWebSocketEvent.class, name = "GROUP")
+        @JsonSubTypes.Type(value = UserWebSocketEvent.class, name = "USER"),
+        @JsonSubTypes.Type(value = GroupWebSocketEvent.class, name = "GROUP")
 })
-public abstract class WebSocketEvent implements IntegrationEvent {
+public abstract class WebSocketEvent implements ApplicationEvent {
     /**
      * The message payload to be delivered to WebSocket clients.
      */

@@ -1,6 +1,6 @@
 package dev.ngb.base_hub.ws_gateway.delivery.websocket;
 
-import dev.ngb.base_hub.base.annotation.Adapter;
+import dev.ngb.base_hub.common.annotation.Adapter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;

@@ -1,14 +1,14 @@
 package dev.ngb.base_hub.domain.user.model;
 
-import dev.ngb.base_hub.base.domain.DomainEntity;
-import dev.ngb.base_hub.util.StringUtils;
+import dev.ngb.base_hub.domain.base.BaseDomainEntity;
+import dev.ngb.base_hub.common.util.StringUtils;
 import lombok.Getter;
 
 import java.time.Instant;
 import java.util.UUID;
 
 @Getter
-public abstract class BaseUser extends DomainEntity<UUID> {
+public abstract class BaseUser extends BaseDomainEntity<UUID> {
     protected String loginId;
     protected String email;
     protected String displayName;

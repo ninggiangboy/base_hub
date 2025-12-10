@@ -1,7 +1,7 @@
 package dev.ngb.base_hub.ws_gateway.infrastructure.kafka;
 
-import dev.ngb.base_hub.base.annotation.InfraService;
-import dev.ngb.base_hub.common.config.kafka.JsonKafkaListener;
+import dev.ngb.base_hub.common.annotation.InfraService;
+import dev.ngb.base_hub.infrastructure.event.JsonKafkaListener;
 import dev.ngb.base_hub.common.constant.WebSocketTopics;
 import dev.ngb.base_hub.common.domain.websocket.WebSocketEvent;
 import dev.ngb.base_hub.ws_gateway.application.usecase.RouteEventToWebSocketUseCase;

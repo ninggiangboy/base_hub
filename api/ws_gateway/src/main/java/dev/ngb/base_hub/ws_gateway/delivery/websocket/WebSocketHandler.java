@@ -1,7 +1,7 @@
 package dev.ngb.base_hub.ws_gateway.delivery.websocket;
 
-import dev.ngb.base_hub.base.annotation.Adapter;
-import dev.ngb.base_hub.common.api.websocket.SessionManager;
+import dev.ngb.base_hub.common.annotation.Adapter;
+import dev.ngb.base_hub.application.spi.websocket.SessionManager;
 import dev.ngb.base_hub.ws_gateway.infrastructure.redis.RedisMessageSubscriber;
 import dev.ngb.base_hub.ws_gateway.infrastructure.redis.RedisSessionManager;
 import dev.ngb.base_hub.ws_gateway.infrastructure.websocket.WebSocketSessionRegistry;
@@ -41,10 +41,10 @@ public class WebSocketHandler extends TextWebSocketHandler {
 
         sessionRegistry.registerSession(session);
         sessionManager.registerSession(userId, sessionId, redisSessionManager.getInstanceId());
-        
+
         // Subscribe to Redis channel for this user to receive messages from other instances
         redisMessageSubscriber.subscribeToUser(userId);
-        
+
         log.info("WebSocket connection established: userId={}, sessionId={}", userId, sessionId);
     }
 

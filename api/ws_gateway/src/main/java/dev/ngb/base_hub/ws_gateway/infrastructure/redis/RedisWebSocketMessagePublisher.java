@@ -2,7 +2,7 @@ package dev.ngb.base_hub.ws_gateway.infrastructure.redis;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import dev.ngb.base_hub.base.annotation.InfraService;
+import dev.ngb.base_hub.common.annotation.InfraService;
 import dev.ngb.base_hub.common.domain.websocket.WebSocketEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

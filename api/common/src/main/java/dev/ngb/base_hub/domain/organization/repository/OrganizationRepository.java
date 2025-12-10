@@ -1,6 +1,6 @@
 package dev.ngb.base_hub.domain.organization.repository;
 
-import dev.ngb.base_hub.base.domain.BaseDomainRepository;
+import dev.ngb.base_hub.domain.base.BaseDomainRepository;
 import dev.ngb.base_hub.domain.organization.model.Organization;
 
 import java.util.Optional;

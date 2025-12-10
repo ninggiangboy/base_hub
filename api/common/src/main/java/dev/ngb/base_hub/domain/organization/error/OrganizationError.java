@@ -1,6 +1,6 @@
 package dev.ngb.base_hub.domain.organization.error;
 
-import dev.ngb.base_hub.base.domain.DomainError;
+import dev.ngb.base_hub.domain.base.DomainError;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 

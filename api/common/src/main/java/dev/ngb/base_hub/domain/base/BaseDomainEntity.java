@@ -1,0 +1,46 @@
+package dev.ngb.base_hub.domain.base;
+
+import lombok.Getter;
+
+import java.time.Instant;
+import java.util.Objects;
+
+@Getter
+public abstract class BaseDomainEntity<T> {
+    protected T id;
+    protected Integer version;
+    protected String createdById;
+    protected String updatedById;
+    protected String deletedById;
+    protected Instant createdAt;
+    protected Instant updatedAt;
+    protected Instant deletedAt;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BaseDomainEntity<?> that = (BaseDomainEntity<?>) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    public void markCreatedBy(String userId) {
+        createdById = userId;
+        createdAt = Instant.now();
+    }
+
+    public void markUpdatedBy(String userId) {
+        updatedById = userId;
+        updatedAt = Instant.now();
+    }
+
+    public void markDeletedBy(String userId) {
+        deletedById = userId;
+        deletedAt = Instant.now();
+    }
+}

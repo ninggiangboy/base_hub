@@ -1,7 +1,7 @@
 package dev.ngb.base_hub.ws_gateway.application.usecase;
 
-import dev.ngb.base_hub.base.annotation.UseCaseService;
-import dev.ngb.base_hub.common.api.websocket.WebSocketMessageSender;
+import dev.ngb.base_hub.common.annotation.UseCaseService;
+import dev.ngb.base_hub.application.spi.websocket.WebSocketMessageSender;
 import dev.ngb.base_hub.common.domain.websocket.GroupWebSocketEvent;
 import dev.ngb.base_hub.common.domain.websocket.UserWebSocketEvent;
 import dev.ngb.base_hub.common.domain.websocket.WebSocketEvent;
